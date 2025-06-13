@@ -6,6 +6,7 @@ import { Editor } from "@tinymce/tinymce-react";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { Note, useNotes } from "../context/NoteContext";
 import styles from "./NotesPage.module.css";
+import { AnimatePresence, motion } from "framer-motion";
 
 export default function NotesContent() {
   const { username, notes, setNotes, showModal, setShowModal } = useNotes();
@@ -70,13 +71,27 @@ export default function NotesContent() {
     <div className={styles.wrapper}>
       <div className={styles.card}>
         <h1 className={styles.welcome}>Welcome, {username} 👋</h1>
-        <button onClick={openModalForNewNote} className={styles.addButton}>
+        <motion.button
+          onClick={openModalForNewNote}
+          className={styles.addButton}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          {" "}
           + Add Notes
-        </button>
+        </motion.button>
 
         <div className={styles.notesList}>
           {notes.map((note: any) => (
-            <div key={note.id} className={styles.note}>
+            <motion.div
+              key={note.id}
+              className={styles.note}
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.8 }}
+              transition={{ duration: 0.3 }}
+            >
+              {" "}
               <div className={styles.noteHeader}>
                 <h3 className={styles.noteTitle}>{note.title}</h3>
                 <span className={styles.timestamp}>{note.timestamp}</span>
@@ -99,77 +114,90 @@ export default function NotesContent() {
                   <FaTrash />
                 </button>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
-
-        {showModal && (
-          <div className={styles.modalOverlay}>
-            <div className={styles.modal}>
-              <h2>{editingNoteId === null ? "Add New Note" : "Edit Note"}</h2>
-              <input
-                type="text"
-                placeholder="Title"
-                value={noteTitle}
-                onChange={(e) => setNoteTitle(e.target.value)}
-                className={styles.titleInput}
-              />
-              <Editor
-                onInit={(evt, editor) => (editorRef.current = editor)}
-                apiKey="e1m37arst2qyym0txdcludggqpy3646mrvlnhn64rmgc6brg"
-                value={editorContent}
-                init={{
-                  height: 300,
-                  menubar: false,
-                  plugins: [
-                    // Core editing features
-                    "anchor",
-                    "autolink",
-                    "charmap",
-                    "codesample",
-                    "emoticons",
-                    "image",
-                    "link",
-                    "lists",
-                    "media",
-                    "searchreplace",
-                    "table",
-                    "visualblocks",
-                    "wordcount",
-                    // Your account includes a free trial of TinyMCE premium features
-                    // Try the most popular premium features until Jun 26, 2025:
-                    "checklist",
-                    "mediaembed",
-                    "casechange",
-                    "formatpainter",
-                    "pageembed",
-                    "a11ychecker",
-                    "tinymcespellchecker",
-                    "permanentpen",
-                    "powerpaste",
-                    "advtable",
-                    "advcode",
-                    "editimage",
-                    "advtemplate",
-                    "ai",
-                    "mentions",
-                    "tinycomments",
-                    "tableofcontents",
-                    "footnotes",
-                    "mergetags",
-                    "autocorrect",
-                    "typography",
-                    "inlinecss",
-                    "markdown",
-                    "importword",
-                    "exportword",
-                    "exportpdf",
-                  ],
-                  toolbar:
-                    "undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat",
-                  tinycomments_mode: "embedded",
-                  tinycomments_author: "Author name",
-                  content_style: `body {
+        <AnimatePresence>
+          {showModal && (
+            <motion.div
+              className={styles.modalOverlay}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            >
+              {" "}
+              <motion.div
+                className={styles.modal}
+                initial={{ scale: 0.5, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.5, opacity: 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                {" "}
+                <h2>{editingNoteId === null ? "Add New Note" : "Edit Note"}</h2>
+                <input
+                  type="text"
+                  placeholder="Title"
+                  value={noteTitle}
+                  onChange={(e) => setNoteTitle(e.target.value)}
+                  className={styles.titleInput}
+                />
+                <Editor
+                  onInit={(evt, editor) => (editorRef.current = editor)}
+                  apiKey="e1m37arst2qyym0txdcludggqpy3646mrvlnhn64rmgc6brg"
+                  value={editorContent}
+                  init={{
+                    height: 300,
+                    menubar: false,
+                    plugins: [
+                      // Core editing features
+                      "anchor",
+                      "autolink",
+                      "charmap",
+                      "codesample",
+                      "emoticons",
+                      "image",
+                      "link",
+                      "lists",
+                      "media",
+                      "searchreplace",
+                      "table",
+                      "visualblocks",
+                      "wordcount",
+                      // Your account includes a free trial of TinyMCE premium features
+                      // Try the most popular premium features until Jun 26, 2025:
+                      "checklist",
+                      "mediaembed",
+                      "casechange",
+                      "formatpainter",
+                      "pageembed",
+                      "a11ychecker",
+                      "tinymcespellchecker",
+                      "permanentpen",
+                      "powerpaste",
+                      "advtable",
+                      "advcode",
+                      "editimage",
+                      "advtemplate",
+                      "ai",
+                      "mentions",
+                      "tinycomments",
+                      "tableofcontents",
+                      "footnotes",
+                      "mergetags",
+                      "autocorrect",
+                      "typography",
+                      "inlinecss",
+                      "markdown",
+                      "importword",
+                      "exportword",
+                      "exportpdf",
+                    ],
+                    toolbar:
+                      "undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat",
+                    tinycomments_mode: "embedded",
+                    tinycomments_author: "Author name",
+                    content_style: `body {
                         font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
                         font-size: 16px;
                         background-color: #D3D3D3;
@@ -178,25 +206,25 @@ export default function NotesContent() {
                     a {
                       color: #007bff;
                     } `,
-                  ai_request: (respondWith: any) =>
-                    respondWith.string(() =>
-                      Promise.reject("See docs to implement AI Assistant")
-                    ),
-                }}
-                onEditorChange={(content) => setEditorContent(content)}
-              />
-
-              <div className={styles.modalActions}>
-                <button onClick={handleSave} className={styles.saveButton}>
-                  Save
-                </button>
-                <button onClick={closeModal} className={styles.cancelButton}>
-                  Cancel
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
+                    ai_request: (respondWith: any) =>
+                      respondWith.string(() =>
+                        Promise.reject("See docs to implement AI Assistant")
+                      ),
+                  }}
+                  onEditorChange={(content) => setEditorContent(content)}
+                />
+                <div className={styles.modalActions}>
+                  <button onClick={handleSave} className={styles.saveButton}>
+                    Save
+                  </button>
+                  <button onClick={closeModal} className={styles.cancelButton}>
+                    Cancel
+                  </button>
+                </div>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </div>
   );

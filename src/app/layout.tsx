@@ -3,6 +3,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "./common/Navbar";
 import { NotesProvider } from "./context/NoteContext";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 // const geistSans = Geist({
 //   variable: "--font-geist-sans",
@@ -28,6 +30,7 @@ export default function RootLayout({
     <html lang="en">
       <body className="appBody">
         <NotesProvider>
+          <ToastContainer />
           <Navbar />
           {children}
         </NotesProvider>

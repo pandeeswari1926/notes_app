@@ -2,6 +2,8 @@
 import { useState } from "react";
 import InputField from "../common/Inputfield";
 import Link from "next/link";
+import { motion } from "framer-motion";
+import { toast } from "react-toastify";
 
 interface FormData {
   email: string;
@@ -65,10 +67,10 @@ const LoginPage: React.FC = () => {
       if (matchedUser) {
         localStorage.setItem("loggedIn", "true");
         localStorage.setItem("currentUser", matchedUser.username);
-        alert("Login successful!");
         window.location.href = "/notes";
+        toast.success("Login Successful!");
       } else {
-        alert("Invalid credentials");
+        toast.error("Invalid credentials");
       }
     } else {
       alert("No user found. Please register.");
@@ -76,8 +78,19 @@ const LoginPage: React.FC = () => {
   };
 
   return (
-    <div className="pageWrapper">
-      <form onSubmit={handleSubmit} className="container">
+    <motion.div
+      className="pageWrapper"
+      initial={{ opacity: 0, y: -50 }} // Start hidden & above
+      animate={{ opacity: 1, y: 0 }} // Animate to visible & in place
+      transition={{ duration: 0.5, ease: "easeOut" }} // Duration 0.5 sec
+    >
+      <motion.form
+        onSubmit={handleSubmit}
+        className="container"
+        initial={{ scale: 0.9, opacity: 0 }} // Form starts small & hidden
+        animate={{ scale: 1, opacity: 1 }} // Form grows & fades in
+        transition={{ delay: 0.3, duration: 0.5 }} // Slight delay for form
+      >
         <h2>Login</h2>
 
         <InputField
@@ -97,16 +110,21 @@ const LoginPage: React.FC = () => {
         />
         {errors.password && <p className="errorText">{errors.password}</p>}
 
-        <button type="submit" className="button">
+        <motion.button
+          type="submit"
+          className="button"
+          whileHover={{ scale: 1.05 }} // Button scales on hover
+          whileTap={{ scale: 0.95 }} // Button shrinks slightly when clicked
+        >
           Login
-        </button>
+        </motion.button>
 
         <p className="linkText">
           Don&apos;t have an account?{" "}
           <Link href="/register">Register here</Link>
         </p>
-      </form>
-    </div>
+      </motion.form>
+    </motion.div>
   );
 };
 

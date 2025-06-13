@@ -16,6 +16,8 @@ const Navbar = () => {
     setIsLoggedIn(loggedIn);
   }, []);
 
+  console.log("isloggedIn", isLoggedIn);
+
   const handleLogout = () => {
     localStorage.removeItem("loggedIn");
     setIsLoggedIn(false);

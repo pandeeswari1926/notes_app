@@ -3,6 +3,8 @@ import { useState } from "react";
 import InputField from "../common/Inputfield";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { motion } from "framer-motion";
+import { toast } from "react-toastify";
 
 interface FormData {
   username: string;
@@ -76,20 +78,30 @@ const RegisterPage: React.FC = () => {
     );
 
     if (isDuplicate) {
-      alert("Username or Email already registered!");
+      toast.error("Username or Email already registered!");
       return;
     }
 
     const updatedUsers = [...existingUsers, formData];
     localStorage.setItem("users", JSON.stringify(updatedUsers));
-
-    alert("Registered successfully!");
+    toast.success("Registered successfully!");
     router.push("/login");
   };
 
   return (
-    <div className="pageWrapper">
-      <form onSubmit={handleSubmit} className="container">
+    <motion.div
+      className="pageWrapper"
+      initial={{ opacity: 0, y: -50 }} // Start hidden & above
+      animate={{ opacity: 1, y: 0 }} // Animate to visible & in place
+      transition={{ duration: 0.5, ease: "easeOut" }} // Duration 0.5 sec
+    >
+      <motion.form
+        onSubmit={handleSubmit}
+        className="container"
+        initial={{ scale: 0.9, opacity: 0 }} // Form starts small & hidden
+        animate={{ scale: 1, opacity: 1 }} // Form grows & fades in
+        transition={{ delay: 0.3, duration: 0.5 }} // Slight delay for form
+      >
         <h2>Sign up</h2>
 
         <InputField
@@ -132,10 +144,10 @@ const RegisterPage: React.FC = () => {
           Register
         </button>
         <p className="linkText">
-          Already have an account? <Link href="/register">Login</Link>
+          Already have an account? <Link href="/login">Login</Link>
         </p>
-      </form>
-    </div>
+      </motion.form>
+    </motion.div>
   );
 };
 
