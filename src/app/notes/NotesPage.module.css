@@ -1,0 +1,190 @@
+.wrapper {
+    padding: 20px;
+    min-height: 100vh;
+}
+
+.card {
+    max-width: 100%;
+    margin: 0 auto;
+    border-radius: 10px;
+    padding: 20px;
+    background: #f5f5f5;
+}
+
+.welcome {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.addButton {
+    padding: 10px 20px;
+    background-color: #4f46e5;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+.notesList {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 16px;
+}
+
+.note {
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.2s ease;
+    position: relative;
+}
+
+.note:hover {
+    transform: scale(1.03);
+}
+
+.note:nth-child(4n+1) {
+    background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
+}
+
+.note:nth-child(4n+2) {
+    background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);
+}
+
+.note:nth-child(4n+3) {
+    background: linear-gradient(135deg, #fdcbf1 0%, #e6dee9 100%);
+}
+
+.note:nth-child(4n+4) {
+    background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+    border: 1px solid #ccc;
+}
+
+.noteHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.noteTitle {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.timestamp {
+    font-size: 12px;
+    color: #555;
+}
+
+.noteContent {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #444;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    /* show 4 lines max */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.editbutton,
+.deleteButton {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin: 5px;
+    font-size: 16px;
+    color: #333;
+    margin-top: 20px;
+}
+
+.editbutton:hover {
+    color: #4f46e5;
+}
+
+.deleteButton:hover {
+    color: #e11d48;
+}
+
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+.modal {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 600px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.editor {
+    height: 150px;
+    margin-bottom: 1rem;
+}
+
+.modalActions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 10px;
+}
+
+.saveButton {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.cancelButton {
+    background-color: #ff0000;
+    color: rgb(255, 255, 255);
+    padding: 10px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.timestamp {
+    font-size: 0.8rem;
+    color: #888;
+    margin-bottom: 4px;
+    display: block;
+}
+
+.titleInput {
+    width: 95%;
+    padding: 8px 12px;
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.noteTitle {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #222;
+}
